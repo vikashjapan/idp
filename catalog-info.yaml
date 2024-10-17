@@ -1,0 +1,68 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: my-react-app
+  description: >
+    My ReactJS application that serves as the frontend for our platform.
+    It provides user interfaces for interacting with our services.
+  tags:
+    - react
+    - frontend
+    - ui
+    - webapp
+  annotations:
+    github.com/project-slug: your-org/your-repo
+    github.com/repo-url: https://github.com/vikashjapan/idp.git
+    github.com/branch: main
+    github.com/commit-hash: abcdef1234567890abcdef1234567890abcdef12
+    backstage.io/techdocs-ref: url:https://your-techdocs-site.com/docs/my-react-app
+    pagerduty.com/service-id: your-pagerduty-service-id
+    circleci.com/project-slug: gh/your-org/your-repo
+    slack.com/channel: your-slack-channel
+    website-url: https://your-application-url.com
+    monitoring-url: https://monitoring-service.com/your-react-app
+    sentry.io/project-slug: your-org/my-react-app
+  links:
+    - url: https://github.com/your-org/your-repo
+      title: Source Code
+      icon: github
+    - url: https://your-application-url.com
+      title: Live Application
+      icon: link
+    - url: https://your-techdocs-site.com/docs/my-react-app
+      title: Documentation
+      icon: docs
+    - url: https://monitoring-service.com/your-react-app
+      title: Monitoring Dashboard
+      icon: dashboard
+    - url: https://sentry.io/organizations/your-org/projects/my-react-app
+      title: Error Tracking
+      icon: sentry
+spec:
+  type: website
+  owner: team-name
+  lifecycle: production
+  providesApis:
+    - my-react-app-api
+  consumesApis:
+    - backend-api
+    - authentication-api
+  dependsOn:
+    - resource: database/postgresql@your-org/your-database
+    - component: backend-service@your-org/backend-service
+relations:
+  - type: ownedBy
+    target:
+      kind: Group
+      name: team-name
+      namespace: default
+  - type: dependsOn
+    target:
+      kind: Component
+      name: backend-service
+      namespace: default
+  - type: consumesApi
+    target:
+      kind: API
+      name: backend-api
+      namespace: default
